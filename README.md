@@ -1,3 +1,10 @@
 # minidora
 Kumagai repository for minidora
-` pip install numpy`
+
+- before beginning
+
+  ` pip install numpy`
+
+- usage
+  
+  `python main.py`
