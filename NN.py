@@ -129,5 +129,6 @@ class Neural_Network:
                 u -= self.Layer_theta[k][i]
                 self.Layer_output[k][i] = f( u )
         print self.Layer_output
+        return self.Layer_output
 
 

@@ -1,11 +1,11 @@
 # -*- encoding: UTF-8 -*-
 import numpy as np
 
-from NN import *
+from test import *
 
 situation_number = 3 # three patterns of situations
-action_number = 5 #five patterns of robot's actions
-eval_number = 1
+action_number = 3 #five patterns of robot's actions
+eval_number = 2
 
 max_val=[10,1,5]#situation,action,facial expression
 array_num=[situation_number,action_number,eval_number]
@@ -19,13 +19,24 @@ def input2NN(array,input_type):
 
 if __name__ == "__main__":
 
-    N_layer = [ 3,5,1 ]
-    teaching_num=2
+    network = init_network()
+
+    N_layer = [ situation_number+action_number,5,eval_number]
+    teaching_num=3#TODO: write csv and count row num
     
     test_situation=np.zeros(int(array_num[0]))
     action_array=np.zeros(int(array_num[1]))
+    test_input=np.zeros(int(array_num[0])+int(array_num[1]))
+
+    input_filename="input.csv"
+    output_filename="output.csv"
 
     NN = Neural_Network( N_layer,teaching_num )
+    teach_i = np.loadtxt(input_filename,delimiter=",")
+    teach_o = np.loadtxt(output_filename,delimiter=",")
+
+    NN.input_date(teach_i,teach_o)
+    NN.before_L("hoge")#TODO:cannot write weights in hoge.csv
 
     #if wait_key>situation_max:
     for cycle in range(situation_number):
@@ -40,13 +51,22 @@ if __name__ == "__main__":
 
     situation_num=input2NN(test_situation,0)
     print situation_num
+    test_input=[0.1,0.2,0.5,0,0,1]
+    NN.testforward(test_input)
+    NN.before_L("hoge")#TODO:cannot write weights in hoge.csv
+    test_input=[0.6,0.2,0.1,0,1,0]
+    NN.testforward(test_input)
 
-    for cycle in range(1,action_number):
-        for i in range(1,array_num[1]):
+
+    for cycle in range(action_number):
+        for i in range(array_num[1]):
             action_array[i]=0 #clean
         print cycle
         action_array[cycle]=1 #set
         #yosou
+        test_input=hstack((situation_num,action_array))
+        print(test_input)
+        #NN.testforward(test_input)
 
         #eval_array[cycle]=
 
