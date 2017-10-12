@@ -130,23 +130,4 @@ class Neural_Network:
                 self.Layer_output[k][i] = f( u )
         print self.Layer_output
 
-teaching_num = 2
-N_layer = [ 2,3,1 ]
-
-NN = Neural_Network( N_layer,teaching_num )
-
-NN.showdata()
-
-teach_i = [ [ 0.1,0.1 ],[ 0.9,0.9 ],[ 0.5,0.5 ] ]
-teach_o = [ [ 0.5 ],[ 0.1 ],[ 1.0 ] ]
-
-NN.input_date( teach_i,teach_o )
-
-NN.showdata()
-
-NN.before_L( "hoge" )
-
-test = [0.9,0.9]
-NN.testforward( test )
-
 
