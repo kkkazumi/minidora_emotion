@@ -1,6 +1,11 @@
 from neuralnetwork import *
 import numpy as np
 
+situation_number = 1 # three patterns of situations
+action_number = 1 #five patterns of robot's actions
+eval_number = 2
+
+
 if __name__ == '__main__':
 
     input_filename="input.csv"
@@ -21,18 +26,21 @@ if __name__ == '__main__':
     mu = 0.9
     epoch = 10000
 
+    test=np.zeros((11,input_size))
     nn = Neural(input_size, hidden_size, output_size)
     nn.train(X, T, epsilon, mu, epoch)
     #nn.error_graph()
 
-    C, Y = nn.predict(X)
+    #action selection
+    print("input situation from 0 to 10")
+    wait_situation=int(raw_input())/10.0
 
-    for i in range(N):
-        x = X[i, :]
-        y = Y[i, :]
-        c = C[i]
+    for action in range(0,10):
+        wait_action=int(action)/10.0
+        print([wait_situation,wait_action])
+        test[action,:]=np.array([wait_situation,wait_action])
 
-        print x
-        print y
-        #print c
-        print ""
+    C, Y=nn.predict(test)
+    print(Y)
+    print(max(Y[:,0]))
+    print(Y[:,0].argmax())
