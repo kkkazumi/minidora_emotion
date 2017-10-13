@@ -1,6 +1,7 @@
 from neuralnetwork import *
 import numpy as np
 import csv
+from head_kai import *
 
 situation_number = 1 # three patterns of situations
 action_number = 1 #five patterns of robot's actions
@@ -16,7 +17,7 @@ if __name__ == '__main__':
     output_size = 2
     epsilon = 0.1
     mu = 0.9
-    epoch = 10000
+    epoch = 1000
 
     wait_situation=0
 
@@ -33,19 +34,19 @@ if __name__ == '__main__':
         nn = Neural(input_size, hidden_size, output_size)
         nn.train(X, T, epsilon, mu, epoch)
 
-        for action in range(0,10):
-            wait_action=int(action)/10.0
+        for action in range(0,3):
+            wait_action=int(action)/3.0
             #print([wait_situation,wait_action])
             test[action,:]=np.array([wait_situation,wait_action])
 
         C, Y=nn.predict(test)
         best=Y[:,0].argmax()
-        print("selected: ",test[best,:])
+        print("best number", best)
 
+        print("action")
         #action!#TODO
+        move_dora(best)
         
-
-
         print("input your evaluation to the robot's behavior (0-10)")
         evaluation=int(raw_input())/10.0
         #evaluation!#TODO:facial expression and so on
